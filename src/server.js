@@ -29,7 +29,7 @@ wsServer.on("request", request => {
             const gameId = guid();
             games[gameId] = {
                 "id": gameId,
-                "clicks": 20,
+                "clicks": 30,
                 "clients": []
             }
 
