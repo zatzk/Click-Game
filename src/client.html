@@ -8,6 +8,7 @@
 <body>
     <h1>Click Game</h1>
     <button id = 'btnCreate'>New Game</button>
+    <p id="showGameId"></p>
     <button id = 'btnJoin'>Join Game</button>
     <input type = 'text' id = 'txtGameId'>
     <div id  = 'divPlayers'></div>
@@ -74,6 +75,7 @@
             //create
             if (response.method === "create"){
                 gameId = response.game.id;
+                document.getElementById("showGameId").innerHTML = gameId;
                 console.log("game successfully created with id " + response.game.id + " with " + response.game.clicks + " clicks")  
             }
 

@@ -1,7 +1,7 @@
 const http = require("http");
 const app = require("express")();
-
-app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
+const guid = require("./guidGenerator");
+app.get("/", (req, res) => res.sendFile(__dirname + "/client.html"));
 
 app.listen(3000, () => console.log("Listening on port 3000"));
 const websocketServer = require("websocket").server;
@@ -15,7 +15,7 @@ var games = {};
 const wsServer = new websocketServer({
     "httpServer": httpServer
 })
-wsServer.on("request", request => {
+wsServer.on("request", request => { 
     //connect
     const connection = request.accept(null, request.origin);
     connection.on("open", () => console.log("opened!"))
@@ -49,7 +49,7 @@ wsServer.on("request", request => {
             const gameId = result.gameId;
             const game = games[gameId];
 
-            if(game.clients.length >= 3) {
+            if(game.clients.length >= 2) {
                 //sorry max players reach
                 return;
             }
@@ -60,7 +60,7 @@ wsServer.on("request", request => {
                 "color": color
             })
             //start the game
-            if (game.clients.length === 3) updateGameState();
+            if (game.clients.length === 2) updateGameState();
 
             const payLoad = {
                 "method": "join",
@@ -123,10 +123,6 @@ function updateGameState(){
 
 
 
-function S4() {
-    return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
-}
- 
-// then to call it, plus stitch in '4' in the third group
-const guid = () => (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
- 
+
+
+
