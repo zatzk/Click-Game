@@ -29,7 +29,7 @@ wsServer.on("request", request => {
             const gameId = guid();
             games[gameId] = {
                 "id": gameId,
-                "clicks": 30,
+                "clicks": 100,
                 "clients": []
             }
 
@@ -49,12 +49,12 @@ wsServer.on("request", request => {
             const gameId = result.gameId;
             const game = games[gameId];
 
-            if(game.clients.length >= 2) {
+            if(game.clients.length >= 3) {
                 //sorry max players reach
                 return;
             }
 
-            const color =  {"0": "Red", "1": "Green", "2": "Blue"}[game.clients.length]
+            const color =  {"0": "Red", "1": "Green", "2": "Blue", "3": "Yellow"}[game.clients.length]
             game.clients.push({
                 "clientId": clientId,
                 "color": color
